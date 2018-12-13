@@ -1,0 +1,21 @@
+{
+  "name": "lambdur",
+  "version": "0.2.1",
+  "description": "Lambda wrapper utility",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": "https://github.com/8eecf0d2/lambdur.git",
+  "author": "8eecf0d2 <8eecf0d23d248b0e6223b8a10ddbf1@gmail.com>",
+  "license": "ISC",
+  "scripts": {
+    "watch": "tsc --project ./tsconfig.json --watch",
+    "build": "tsc --project ./tsconfig.json"
+  },
+  "devDependencies": {
+    "@types/node": "^10.12.1",
+    "typescript": "^3.1.3"
+  },
+  "files": [
+    "dist"
+  ]
+}
