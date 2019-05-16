@@ -7,8 +7,15 @@
     "declaration": true,
     "declarationDir": "dist",
     "outDir": "dist",
-    "lib": [ "ES2015", "ES2017" ]
+    "lib": [
+      "ES2015",
+      "ES2017"
+    ]
   },
-  "include": [ "src/ts/**/*.ts" ],
-  "exclude": [ "node_modules" ]
+  "include": [
+    "src/ts/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
