@@ -2,34 +2,42 @@
 
 Simple Lambda & Cloud Function wrapper written in Typescript.
 
-### Usage
+### Get Started
 
-Install with **yarn**
+Install with **yarn**.
+
 ```bash
 yarn add lambdur
 ```
 
-Import and chain your handlers
+### Usage
+
+Import and chain your handlers.
+
 ```ts
 import { Lambdur } from "lambdur";
-import { qakMiddleware } from "./middleware";
+import { ExampleMiddleware } from "./middleware";
 
-const fooHandler = () => ({ statusCode: 200, body: "foo" });
+const ExampleHttpHandler = () => ({
+  statusCode: 200,
+  body: "foo"
+});
 
 export const handler = Lambdur.chain(
-  qakMiddleware,
-  fooHandler,
+  Lambdur.Handler.Type.HTTP,
+  ExampleMiddleware,
+  ExampleHttpHandler,
 );
 ```
 
 ### Types
 
-Lambdur provides typings for handler `request` and `response` properties which you _should_ extend to improve your typings.
+Lambdur provides types for specific types for AWS **CRON**, **HTTP**, **SNS** and **SQS** `request` and `response` properties.
 
 ```ts
 import { Lambdur } from "lambdur";
 
-const fooHandler: Lambdur.Handler<fooHandler.Request, fooHandler.Response> = async (request, context, callback) => {
+const ExampleHttpHandler: Lambdur.Handler<ExampleHttpHandler.Request, ExampleHttpHandler.Response> = async (request, context, callback) => {
 
   await new Promise(r => setTimeout(() => r(), 1000));
 
@@ -42,15 +50,15 @@ const fooHandler: Lambdur.Handler<fooHandler.Request, fooHandler.Response> = asy
   }
 }
 
-export const handler = Lambdur.chain(fooHandler);
+export const handler = Lambdur.chain(ExampleHttpHandler);
 
-export namespace fooHandler {
-  export interface Request extends Lambdur.Handler.Request {
+export namespace ExampleHttpHandler {
+  export interface Request extends Lambdur.Handler.Request.HTTP {
     body: {
       name: string;
     }
   }
-  export interface Response extends Lambdur.Handler.Request {
+  export interface Response extends Lambdur.Handler.Response {
     body: {
       greeting: string;
       ts: number;
@@ -73,4 +81,9 @@ yarn run build
 ##### Watch script
 ```sh
 yarn run watch
+```
+
+##### Lint script
+```sh
+yarn run lint
 ```
