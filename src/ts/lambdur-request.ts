@@ -7,7 +7,7 @@ export class LambdurRequest {
     private type: Lambdur.Handler.Type,
     private request: any,
   ) {
-    this.reference = Math.random().toString(16).substring(2);
+    this.reference = request.hasOwnProperty("ref") && typeof request.ref === "string" ? request.ref : Math.random().toString(16).substring(2, 12);
   }
 
   public parseRequest(): Lambdur.Handler.Request {
