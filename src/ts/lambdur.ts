@@ -8,7 +8,7 @@ export class Lambdur {
 
   public static chain <RequestType>(type: Lambdur.Handler.Type, ...handlers: Array<Lambdur.Handler>): Lambdur.Handler {
     return async (request, context) => {
-      const lambdaRequest = new LambdurRequest(type, request);
+      const lambdaRequest = new LambdurRequest(type, request, context);
 
       let response: LambdurResponse;
 
@@ -101,7 +101,9 @@ export namespace Lambdur {
         Records: Array<RecordType>;
       }
     }
-    export interface Context {}
+    export interface Context {
+      awsRequestId?: string;
+    }
     export type Request = Lambdur.Handler.Request.HTTP | Lambdur.Handler.Request.SQS | Lambdur.Handler.Request.SNS | Lambdur.Handler.Request.CRON;
     export interface Response {
       statusCode: number;

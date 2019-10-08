@@ -6,8 +6,21 @@ export class LambdurRequest {
   constructor(
     private type: Lambdur.Handler.Type,
     private request: any,
+    private context: Lambdur.Handler.Context,
   ) {
-    this.reference = request.hasOwnProperty("ref") && typeof request.ref === "string" ? request.ref : Math.random().toString(16).substring(2, 12);
+    this.reference = this.parseRef();
+  }
+
+  public parseRef(): string {
+    if (this.request.hasOwnProperty("ref") && typeof this.request.ref === "string") {
+      return this.request.ref;
+    }
+
+    if (this.context.hasOwnProperty("awsRequestId") && typeof this.context.awsRequestId === "string") {
+      return this.context.awsRequestId;
+    }
+
+    return Math.random().toString(16).substring(2, 12);
   }
 
   public parseRequest(): Lambdur.Handler.Request {
